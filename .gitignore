@@ -25,6 +25,7 @@ log.*
 info
 output
 run/unit-cell-creator
+input
 MPI-compute-times
 MPI-wait-times
 #EOF
