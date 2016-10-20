@@ -401,6 +401,10 @@ int set_atom_vars(std::vector<cs::catom_t> & catom_array, std::vector<std::vecto
 
       zlog << zTs() << "Using surface anisotropy for atoms with < threshold number of neighbours." << std::endl;
 
+      // resize vector to hold 6 elements per atom (symmetric 3x3)
+      atoms::stensor.resize(atoms::num_atoms);
+      for (int i=0; i<atoms::num_atoms; ++i) atoms::stensor[i].resize(6);
+
       atoms::surface_array.resize(atoms::num_atoms);
       atoms::nearest_neighbour_list_si.resize(atoms::num_atoms);
       atoms::nearest_neighbour_list_ei.resize(atoms::num_atoms);
@@ -436,6 +440,13 @@ int set_atom_vars(std::vector<cs::catom_t> & catom_array, std::vector<std::vecto
 
                   // get atomic position vector i->j
                   double eij[3]={cneighbourlist[atom][nn].vx,cneighbourlist[atom][nn].vy,cneighbourlist[atom][nn].vz};
+
+                  // calculate rij
+                  double rij = sqrt(eij[0]*eij[0] + eij[1]*eij[1] + eij[2]*eij[2]);
+
+                  // calculate lij (assume exp(-r) form)
+                  double l0 = 1.0e-23;
+                  double lij = l0*exp(-rij);
 
                   // normalise to unit vector
                   double invrij=1.0/sqrt(eij[0]*eij[0]+eij[1]*eij[1]+eij[2]*eij[2]);
