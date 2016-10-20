@@ -472,12 +472,12 @@ double spin_applied_field_energy(const double Sx, const double Sy, const double 
 /// @version 1.0
 /// @date    07/02/2011
 ///
-/// @param[in] atom atom number
+/// @param[in] atom number
 /// @param[in] imaterial material of local atom
 /// @param[in] Sx x-spin of local atom
 /// @param[in] Sy y-spin of local atom
 /// @param[in] Sz z-spin of local atom
-/// @return exchange energy
+/// @return surface anisotropy energy
 ///
 /// @internal
 ///	Created:		13/09/2011
@@ -495,6 +495,56 @@ double spin_surface_anisotropy_energy(const int atom, const int imaterial, const
 			energy+=Ks*si_dot_eij*si_dot_eij;
 		}
 	}
+
+	return energy;
+}
+
+/// @brief Calculates the surface anisotropy energy for a single spin
+/// using tensor method.
+///
+/// @section License
+/// Use of this code, either in source or compiled form, is subject to license from the authors.
+/// Copyright \htmlonly &copy \endhtmlonly Richard Evans, 2009-2011. All Rights Reserved.
+///
+/// @section Information
+/// @author  Sam Westmoreland, sw766@york.ac.uk
+/// @version 1.0
+/// @date    20/10/2016
+///
+/// @param[in] atom number
+/// @param[in] imaterial material of local atom
+/// @param[in] sx x-spin of local atom
+/// @param[in] sy y-spin of local atom
+/// @param[in] sz z-spin of local atom
+/// @return surface anisotropy energy
+///
+/// @internal
+///	Created:		13/09/2011
+///	Revision:	  ---
+///=====================================================================================
+///
+double spin_surface_anisotropy_energy_tensor_method(
+        const int atom,
+        const double sx,
+        const double sy,
+        const double sz)
+{
+        /* double dot product of spin with surface tensor */
+        double x, y, z;
+
+        x = sx * atoms::stensor[atom][0] +
+            sy * atoms::stensor[atom][1] +
+            sz * atoms::stensor[atom][2];
+
+        y = sx * atoms::stensor[atom][1] +
+            sy * atoms::stensor[atom][3] +
+            sz * atoms::stensor[atom][4];
+
+        z = sx * atoms::stensor[atom][2] +
+            sy * atoms::stensor[atom][4] +
+            sz * atoms::stensor[atom][5];
+
+        double energy = sx*x + sy*y + sz*z;
 
 	return energy;
 }

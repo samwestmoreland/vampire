@@ -455,6 +455,19 @@ int set_atom_vars(std::vector<cs::catom_t> & catom_array, std::vector<std::vecto
                   atoms::eijy.push_back(eij[1]*invrij);
                   atoms::eijz.push_back(eij[2]*invrij);
 
+                  eij[0] *= invrij;
+                  eij[1] *= invrij;
+                  eij[2] *= invrij;
+
+                  /* add neighbour contribution to matrix element */
+
+                  atoms::stensor[atom][0] += eij[0] * eij[0] * lij;
+                  atoms::stensor[atom][1] += eij[0] * eij[1] * lij;
+                  atoms::stensor[atom][2] += eij[0] * eij[2] * lij;
+                  atoms::stensor[atom][3] += eij[1] * eij[1] * lij;
+                  atoms::stensor[atom][4] += eij[1] * eij[2] * lij;
+                  atoms::stensor[atom][5] += eij[2] * eij[2] * lij;
+
                   //int natom = cneighbourlist[atom][nn].nn;
                   //std::cout << "nn_id: " << nn << " j: " << cneighbourlist[atom][nn].nn << "\trange: " << 1.0/invrij << " ";
                   //std::cout << "eij: " << eij[0] << " " << eij[1] << " " << eij[2] << "\tatomi: ";
