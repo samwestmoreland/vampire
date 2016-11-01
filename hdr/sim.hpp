@@ -198,6 +198,7 @@ namespace sim{
    extern double spin_cubic_anisotropy_energy(const int, const double, const double, const double);
    extern double spin_tensor_anisotropy_energy(const int, const double, const double, const double);
    extern double spin_surface_anisotropy_energy(const int, const int, const double, const double, const double);
+   extern double spin_surface_anisotropy_energy_tensor_method(const int, const double, const double, const double);
    extern double spin_applied_field_energy(const double, const double, const double);
    extern double spin_magnetostatic_energy(const int, const double, const double, const double);
    extern double lattice_anisotropy_function(const double, const int);

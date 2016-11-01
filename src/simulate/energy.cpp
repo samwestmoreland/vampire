@@ -545,6 +545,7 @@ double spin_surface_anisotropy_energy_tensor_method(
             sz * atoms::stensor[atom][5];
 
         double energy = sx*x + sy*y + sz*z;
+        energy *= mp::material[1].Ks * 0.5;
 
 	return energy;
 }
