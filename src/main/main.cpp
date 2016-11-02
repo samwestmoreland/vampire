@@ -164,7 +164,7 @@ int main(int argc, char* argv[]){
 /// 
 /// \section intro_sec Introduction
 /// 
-/// Vampire is an anacronym for Visual Atomistic and Micromagnetic Parallel IntegratoR Engine and 
+/// Vampire is an acronym for Visual Atomistic and Micromagnetic Parallel IntegratoR Engine and 
 /// simulates the magnetic properties of materials using a classical spin model. Models can be 
 /// defined from the atomistic scale up to micrometer scale using a variety of methods.The code is
 /// open source and has been developed by the Computational Magnetism Group at The University of

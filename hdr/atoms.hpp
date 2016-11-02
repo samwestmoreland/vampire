@@ -128,7 +128,7 @@ namespace atoms
 	extern std::vector<double> eijx;
 	extern std::vector<double> eijy;
 	extern std::vector<double> eijz;
-        extern std::vector<std::vector<double> > stensor;
+        extern std::vector<std::vector<double> > ktensor;
 
 	extern std::vector<double> uniaxial_anisotropy_vector_x; // local anisotropy unit vector
 	extern std::vector<double> uniaxial_anisotropy_vector_y;

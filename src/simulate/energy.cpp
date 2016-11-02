@@ -499,7 +499,7 @@ double spin_surface_anisotropy_energy(const int atom, const int imaterial, const
 	return energy;
 }
 
-/// @brief Calculates the surface anisotropy energy for a single spin
+/// @brief Calculates pair anisotropy energy for a single spin
 /// using tensor method.
 ///
 /// @section License
@@ -523,7 +523,7 @@ double spin_surface_anisotropy_energy(const int atom, const int imaterial, const
 ///	Revision:	  ---
 ///=====================================================================================
 ///
-double spin_surface_anisotropy_energy_tensor_method(
+double pair_anisotropy_energy(
         const int atom,
         const double sx,
         const double sy,
@@ -532,20 +532,20 @@ double spin_surface_anisotropy_energy_tensor_method(
         /* double dot product of spin with surface tensor */
         double x, y, z;
 
-        x = sx * atoms::stensor[atom][0] +
-            sy * atoms::stensor[atom][1] +
-            sz * atoms::stensor[atom][2];
+        x = sx * atoms::ktensor[atom][0] +
+            sy * atoms::ktensor[atom][1] +
+            sz * atoms::ktensor[atom][2];
 
-        y = sx * atoms::stensor[atom][1] +
-            sy * atoms::stensor[atom][3] +
-            sz * atoms::stensor[atom][4];
+        y = sx * atoms::ktensor[atom][1] +
+            sy * atoms::ktensor[atom][3] +
+            sz * atoms::ktensor[atom][4];
 
-        z = sx * atoms::stensor[atom][2] +
-            sy * atoms::stensor[atom][4] +
-            sz * atoms::stensor[atom][5];
+        z = sx * atoms::ktensor[atom][2] +
+            sy * atoms::ktensor[atom][4] +
+            sz * atoms::ktensor[atom][5];
 
         double energy = sx*x + sy*y + sz*z;
-        energy *= mp::material[1].Ks * 0.5;
+        energy *= 0.5;
 
 	return energy;
 }

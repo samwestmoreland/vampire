@@ -80,7 +80,7 @@ namespace atoms{
 	std::vector<double> eijx(0);
 	std::vector<double> eijy(0);
 	std::vector<double> eijz(0);
-        std::vector<std::vector<double> > stensor;
+        std::vector<std::vector<double> > ktensor;
 
 	// Local anisotropy directions for each atom
 	std::vector<double> uniaxial_anisotropy_vector_x(0);

@@ -402,8 +402,8 @@ int set_atom_vars(std::vector<cs::catom_t> & catom_array, std::vector<std::vecto
       zlog << zTs() << "Using surface anisotropy for atoms with < threshold number of neighbours." << std::endl;
 
       // resize vector to hold 6 elements per atom (symmetric 3x3)
-      atoms::stensor.resize(atoms::num_atoms);
-      for (int i=0; i<atoms::num_atoms; ++i) atoms::stensor[i].resize(6,0);
+      atoms::ktensor.resize(atoms::num_atoms);
+      for (int i=0; i<atoms::num_atoms; ++i) atoms::ktensor[i].resize(6,0);
 
       atoms::surface_array.resize(atoms::num_atoms);
       atoms::nearest_neighbour_list_si.resize(atoms::num_atoms);
@@ -449,7 +449,7 @@ int set_atom_vars(std::vector<cs::catom_t> & catom_array, std::vector<std::vecto
 
                   /* lij normalised to 1 */
                   // double lij = exp(-rij);
-                  double lij = 1.0;
+                  double lij = mp::material[1].Ks;
 
                   // normalise to unit vector
                   double invrij=1.0/sqrt(eij[0]*eij[0]+eij[1]*eij[1]+eij[2]*eij[2]);
@@ -464,12 +464,12 @@ int set_atom_vars(std::vector<cs::catom_t> & catom_array, std::vector<std::vecto
 
                   /* add neighbour contribution to matrix element */
 
-                  atoms::stensor[atom][0] += eij[0] * eij[0] * lij;
-                  atoms::stensor[atom][1] += eij[0] * eij[1] * lij;
-                  atoms::stensor[atom][2] += eij[0] * eij[2] * lij;
-                  atoms::stensor[atom][3] += eij[1] * eij[1] * lij;
-                  atoms::stensor[atom][4] += eij[1] * eij[2] * lij;
-                  atoms::stensor[atom][5] += eij[2] * eij[2] * lij;
+                  atoms::ktensor[atom][0] += eij[0] * eij[0] * lij;
+                  atoms::ktensor[atom][1] += eij[0] * eij[1] * lij;
+                  atoms::ktensor[atom][2] += eij[0] * eij[2] * lij;
+                  atoms::ktensor[atom][3] += eij[1] * eij[1] * lij;
+                  atoms::ktensor[atom][4] += eij[1] * eij[2] * lij;
+                  atoms::ktensor[atom][5] += eij[2] * eij[2] * lij;
 
                   //int natom = cneighbourlist[atom][nn].nn;
                   //std::cout << "nn_id: " << nn << " j: " << cneighbourlist[atom][nn].nn << "\trange: " << 1.0/invrij << " ";
