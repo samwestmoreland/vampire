@@ -458,9 +458,12 @@ int set_derived_parameters(){
 		mp::material[mat].one_oneplusalpha_sq   = -mp::material[mat].gamma_rel/(1.0+mp::material[mat].alpha*mp::material[mat].alpha);
 		mp::material[mat].alpha_oneplusalpha_sq =  mp::material[mat].alpha*mp::material[mat].one_oneplusalpha_sq;
 
-		for(int j=0;j<mp::num_materials;j++){
-			material[mat].Jij_matrix[j]				= mp::material[mat].Jij_matrix_SI[j]/mp::material[mat].mu_s_SI;
-		}
+                for(int j=0; j<mp::num_materials; j++)
+                {
+                    material[mat].Jij_matrix[j] = mp::material[mat].Jij_matrix_SI[j]/mp::material[mat].mu_s_SI;
+                    material[mat].kij_matrix[j] /= mp::material[mat].mu_s_SI;
+                }
+
 		mp::material[mat].Ku									= mp::material[mat].Ku1_SI/mp::material[mat].mu_s_SI;
       mp::material[mat].Ku2                        = mp::material[mat].Ku2_SI/mp::material[mat].mu_s_SI;
       mp::material[mat].Ku3                        = mp::material[mat].Ku3_SI/mp::material[mat].mu_s_SI;

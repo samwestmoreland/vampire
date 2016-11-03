@@ -529,7 +529,7 @@ double pair_anisotropy_energy(
         const double sy,
         const double sz)
 {
-        /* double dot product of spin with surface tensor */
+        /* double dot product of spin with pair anisotropy tensor */
         double x, y, z;
 
         x = sx * atoms::ktensor[atom][0] +
@@ -630,7 +630,8 @@ double calculate_spin_energy(const int atom, const int AtomExchangeType){
    if(sixth_order_uniaxial_anisotropy) energy+=spin_sixth_order_uniaxial_anisotropy_energy(imaterial, Sx, Sy, Sz);
 	if(sim::CubicScalarAnisotropy==true) energy+=spin_cubic_anisotropy_energy(imaterial, Sx, Sy, Sz);
    if(sim::lattice_anisotropy_flag) energy+=spin_lattice_anisotropy_energy(imaterial, Sx, Sy, Sz);
-	if(sim::surface_anisotropy==true) energy+=spin_surface_anisotropy_energy(atom, imaterial, Sx, Sy, Sz);
+	// if(sim::surface_anisotropy==true) energy+=spin_surface_anisotropy_energy(atom, imaterial, Sx, Sy, Sz);
+	if(sim::surface_anisotropy==true) energy+=pair_anisotropy_energy(atom, Sx, Sy, Sz);
    if(sim::spherical_harmonics && sim::random_anisotropy==false) energy += spin_spherical_harmonic_aniostropy_energy(imaterial, Sx, Sy, Sz);
 	if(sim::spherical_harmonics && sim::random_anisotropy) energy += spin_spherical_harmonic_random_aniostropy_energy(atom, imaterial, Sx, Sy, Sz);
 	energy+=spin_applied_field_energy(Sx, Sy, Sz);

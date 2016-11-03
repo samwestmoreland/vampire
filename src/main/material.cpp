@@ -90,12 +90,13 @@ materials_t::materials_t ():
 		geometry_coords[i][1]=0.0;
 	}
 	// array variables
-	for(int i=0;i<mp::max_materials;i++){
-		Jij_matrix_SI[i]=0.0;
-		Jij_matrix[i]=0.0;
-		intermixing[i]=0.0;
-		alloy[i]=0.0;
-	}
+        for(int i=0;i<mp::max_materials;i++){
+            Jij_matrix_SI[i]=0.0;
+            Jij_matrix[i]=0.0;
+            intermixing[i]=0.0;
+            alloy[i]=0.0;
+            kij_matrix[i]=0.0;
+        }
 	initial_spin[0]=0.0;
 	initial_spin[1]=0.0;
 	initial_spin[2]=1.0;

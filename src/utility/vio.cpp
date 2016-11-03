@@ -3247,6 +3247,16 @@ int read_mat_file(std::string const matfile, int const LineNumber){
       }
       //------------------------------------------------------------
       else
+          test = "pair-anisotropy-matrix";
+      if (word == test)
+      {
+          double kij = atof(value.c_str());
+          check_for_valid_value(kij, word, line, prefix, unit, "energy", -1e-18, 1e-18,"material"," < +/- 1.0e18");
+          read_material[super_index].kij_matrix[sub_index] = -kij;
+          return EXIT_SUCCESS;
+      }
+      // ------------------------------------------------------------
+      else
       test="relative-gamma";
       if(word==test){
          double gr = atof(value.c_str());

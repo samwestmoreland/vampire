@@ -127,6 +127,7 @@ using std::string;
 		double Kc;
 		double Ks_SI;
 		double Ks;
+                double kij_matrix[max_materials];
 
 		double gamma_rel;
 		double Jij_matrix_SI[max_materials];

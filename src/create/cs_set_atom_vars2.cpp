@@ -401,7 +401,7 @@ int set_atom_vars(std::vector<cs::catom_t> & catom_array, std::vector<std::vecto
 
       zlog << zTs() << "Using surface anisotropy for atoms with < threshold number of neighbours." << std::endl;
 
-      // resize vector to hold 6 elements per atom (symmetric 3x3)
+      // vector to hold 6 elements per atom (symmetric 3x3)
       atoms::ktensor.resize(atoms::num_atoms);
       for (int i=0; i<atoms::num_atoms; ++i) atoms::ktensor[i].resize(6,0);
 
@@ -447,9 +447,14 @@ int set_atom_vars(std::vector<cs::catom_t> & catom_array, std::vector<std::vecto
                   // calculate lij (assume exp(-r) form)
                   // double l0 = mp::material[atoms::type_array[atom]].Ks;
 
-                  /* lij normalised to 1 */
-                  // double lij = exp(-rij);
-                  double lij = mp::material[1].Ks;
+                  /* determine atom types */
+                  const int itype = atoms::type_array[atom];
+
+                  const int natom = atoms::neighbour_list_array[nn];
+                  const int jtype = atoms::type_array[natom];
+
+                  /* lij matrix element */
+                  double lij = mp::material[itype].kij_matrix[jtype];
 
                   // normalise to unit vector
                   double invrij=1.0/sqrt(eij[0]*eij[0]+eij[1]*eij[1]+eij[2]*eij[2]);
@@ -462,7 +467,7 @@ int set_atom_vars(std::vector<cs::catom_t> & catom_array, std::vector<std::vecto
                   eij[1] *= invrij;
                   eij[2] *= invrij;
 
-                  /* add neighbour contribution to matrix element */
+                  /* add neighbour contribution to tensor element */
 
                   atoms::ktensor[atom][0] += eij[0] * eij[0] * lij;
                   atoms::ktensor[atom][1] += eij[0] * eij[1] * lij;
