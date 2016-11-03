@@ -444,9 +444,6 @@ int set_atom_vars(std::vector<cs::catom_t> & catom_array, std::vector<std::vecto
                   // calculate rij
                   double rij = sqrt(eij[0]*eij[0] + eij[1]*eij[1] + eij[2]*eij[2]);
 
-                  // calculate lij (assume exp(-r) form)
-                  // double l0 = mp::material[atoms::type_array[atom]].Ks;
-
                   /* determine atom types */
                   const int itype = atoms::type_array[atom];
 
