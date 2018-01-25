@@ -33,8 +33,8 @@ namespace internal{
    //---------------------------------------------------------------------------
    // Function to calculate surface anisotropy tensor
    //---------------------------------------------------------------------------
-   void initialise_neel_anisotropy_tensor(std::vector <std::vector <bool> >& nearest_neighbour_interactions_list,
-                                          std::vector<std::vector <cs::neighbour_t> >& cneighbourlist){
+   void initialise_longrange_neel_anisotropy_tensor(std::vector <std::vector <bool> >& nearest_neighbour_interactions_list,
+                                                    std::vector<std::vector <cs::neighbour_t> >& cneighbourlist){
 
       // Print informative message to log file
       zlog << zTs() << "Using Néel pair anisotropy for atoms with < threshold number of neighbours." << std::endl;
@@ -62,9 +62,6 @@ namespace internal{
 
             // loop over all neighbours
             for(unsigned int nn = 0; nn < cneighbourlist[atom].size(); nn++){
-
-               // only add nearest neighbours to list
-               if(nearest_neighbour_interactions_list[atom][nn]==true){
 
                   // get atom number for neighbour
                   const unsigned int natom = cneighbourlist[atom][nn].nn;
@@ -102,7 +99,6 @@ namespace internal{
                   //std::cout << catom_array[natom].x << " " << catom_array[natom].y << " " << catom_array[natom].z << std::endl;
                   //std::cout << atom << "\t" << natom << "\t" << kij << "\t" << anisotropy::internal::mp[imat].kij[jmat] << "\t" << i_mu_s << std::endl;
 
-               }
 
             } // end of neighbour loop
 
