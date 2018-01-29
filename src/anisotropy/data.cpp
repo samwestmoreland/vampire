@@ -37,6 +37,7 @@ namespace anisotropy{
       bool enable_neel_anisotropy     = false; // Flag to turn on Neel anisotropy calculation (memory intensive at startup)
       bool enable_lattice_anisotropy  = false; // Flag to turn on lattice anisotropy calculation
       bool enable_random_anisotropy   = false; // Flag to enable random anisitropy initialisation
+      bool enable_exponential_lij     = false; // Flag to enable distance dependent lij calculation
 
       bool enable_uniaxial_second_order = false; // Flag to enable calculation of second order anisotropy
       bool enable_uniaxial_fourth_order = false; // Flag to enable calculation of fourth order anisotropy

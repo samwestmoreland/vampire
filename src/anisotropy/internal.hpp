@@ -156,9 +156,10 @@ namespace anisotropy{
       extern bool enable_cubic_fourth_order;    // Flag to enable calculation of fourth order cubic anisotropy
       extern bool enable_cubic_sixth_order;     // Flag to enable calculation of sixth order cubic  anisotropy
 
-      extern bool enable_neel_anisotropy; // Flag to turn on Neel anisotropy calculation (memory intensive at startup)
-      extern bool enable_lattice_anisotropy; // Flag to turn on lattice anisotropy calculation
-      extern bool enable_random_anisotropy; // Flag to enable random anisitropy initialisation
+      extern bool enable_neel_anisotropy;       // Flag to turn on Neel anisotropy calculation (memory intensive at startup)
+      extern bool enable_lattice_anisotropy;    // Flag to turn on lattice anisotropy calculation
+      extern bool enable_random_anisotropy;     // Flag to enable random anisitropy initialisation
+      extern bool enable_exponential_lij;       // Flag to enable distance dependent lij calculation
 
       // arrays for storing 1D collapsed Neel tensor
       extern std::vector<double> neel_tensor;
@@ -296,6 +297,15 @@ namespace anisotropy{
 
       void initialise_neel_anisotropy_tensor(std::vector <std::vector <bool> >& nearest_neighbour_interactions_list,
                                              std::vector<std::vector <cs::neighbour_t> >& cneighbourlist);
+     
+      // this function is the same as the 'initialise_neel_anisotropy_tensor'
+      // but contains the function 'get_lij' which calculates a distance depenedent value for the neel anisotropy
+      void initialise_longrange_neel_anisotropy_tensor(
+        std::vector<std::vector<bool> >& nearest_neighbour_interactions_list,
+        std::vector<std::vector<cs::neighbour_t> >& cneighbourlist);
+
+      // get lij value, which depends on atomic separation
+      double get_lij(double* eij, double kij);
 
    } // end of internal namespace
 

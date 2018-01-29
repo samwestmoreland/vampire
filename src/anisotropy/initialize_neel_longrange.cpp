@@ -31,8 +31,24 @@ namespace anisotropy{
 namespace internal{
 
    //---------------------------------------------------------------------------
-   // Function to calculate surface anisotropy tensor
+   // Functions to calculate surface anisotropy tensor
    //---------------------------------------------------------------------------
+   
+   double get_lij(double* eij, double kij) {
+
+      // calculate distance between atoms
+      double r = sqrt(eij[0]*eij[0] + eij[1]*eij[1] + eij[2]*eij[2]);
+     
+      // characteristic distance (approximately nearest neighbour distance) 
+      double r0 = 2.5;
+
+      // assume lij falls off exponentially
+      double lij = kij * exp(-r/r0);
+
+      return lij;
+
+   }
+
    void initialise_longrange_neel_anisotropy_tensor(std::vector <std::vector <bool> >& nearest_neighbour_interactions_list,
                                                     std::vector<std::vector <cs::neighbour_t> >& cneighbourlist){
 
@@ -81,14 +97,15 @@ namespace internal{
                   eij[2] = eij[2] * invrij;
 
                   // get pair anisotropy constant between atom i and j
-                  const double kij = anisotropy::internal::mp[imat].kij[jmat]*i_mu_s;
+                  double kij = anisotropy::internal::mp[imat].kij[jmat]*i_mu_s;
 
+                  double lij = anisotropy::internal::get_lij(eij, kij);
 
                   // loop over tensor components and sum total including local anisotropy constant
                   // note inclusion of factor - 2 . 1/2 = -1 in tensor field compared to energy due to derivative
                   for(int i = 0; i < 3; ++i){
                      for(int j = 0; j < 3; ++j){
-                        tmp_tensor[ 3*i + j ] += kij * eij[i] * eij[j];
+                        tmp_tensor[ 3*i + j ] += lij * eij[i] * eij[j];
                      }
                   }
 

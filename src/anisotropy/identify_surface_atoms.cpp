@@ -172,7 +172,11 @@ namespace anisotropy{
       // If neel surface anisotropy is enabled, calculate necessary data
       //----------------------------------------------------------------
       if(internal::enable_neel_anisotropy){
-         internal::initialise_neel_anisotropy_tensor(nearest_neighbour_interactions_list, cneighbourlist);
+
+         if (internal::enable_exponential_lij)
+            internal::initialise_longrange_neel_anisotropy_tensor(nearest_neighbour_interactions_list, cneighbourlist);
+         else
+            internal::initialise_neel_anisotropy_tensor(nearest_neighbour_interactions_list, cneighbourlist);
       }
 
       return;

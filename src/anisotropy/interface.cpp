@@ -63,6 +63,14 @@ namespace anisotropy{
       if(word==test){
           // Enable large threshold to force calculation of Neel anisotropy for all atoms
           internal::neel_anisotropy_threshold = 1000000000;
+          internal::enable_neel_anisotropy = true;
+          return true;
+      }
+      //-------------------------------------------------------------------
+      test="enable-exponential-lij";
+      if(word==test){
+          internal::enable_neel_anisotropy = true;
+          internal::enable_exponential_lij = true;
           return true;
       }
       //--------------------------------------------------------------------

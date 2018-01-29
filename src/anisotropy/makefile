@@ -13,6 +13,7 @@ get_anisotropy.o \
 identify_surface_atoms.o \
 initialize.o \
 initialize_neel.o \
+initialize_neel_longrange.o \
 interface.o \
 lattice.o \
 neel.o \
